@@ -1,8 +1,22 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { BsPlus } from "react-icons/bs";
 
 const ActionButton = () => {
   const [modalOpen, setModalOpen] = useState(false);
+
+  useEffect(() => {
+    const handleEsc = (event: { keyCode: number }) => {
+      if (event.keyCode === 27) {
+        setModalOpen(false);
+      }
+    };
+    window.addEventListener("keydown", handleEsc);
+
+    return () => {
+      window.removeEventListener("keydown", handleEsc);
+    };
+  }, []);
+
   return (
     <>
       <button className="right-0 bottom-0 fixed bg-blue-500 rounded-full m-10">
